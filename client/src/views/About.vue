@@ -3,10 +3,10 @@
     <Navbar/>
     <div class="container">
       <div class="row">
-        <div class="col-sm-8" style="height: 100vh; width: 100%">
-          <img :src="product.image" alt="" style="width: 100%; height: 100%;">
+        <div class="col-sm-8" style="width: 100%">
+          <img :src="product.image" alt="" style="width: 100%; object-fit: contain;">
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 mb-4">
           <div class="mt-4" style="font-size: 200%">
             {{ product.name }}
           </div>
@@ -23,13 +23,15 @@
             {{ product.description }}
           </small>
           <hr>
-          <div class="form-group">
-            <label>Amount:</label>
-            <select class="form-control" v-model="amount">
-              <option v-for="num in product.stock" :key="num">{{ num }}</option>
-            </select>
+          <div v-if="!$store.state.admin && isLogin">
+            <div class="form-group">
+              <label>Amount:</label>
+              <select class="form-control" v-model="amount">
+                <option v-for="num in product.stock" :key="num">{{ num }}</option>
+              </select>
+            </div>
+            <button style="background-color: #222222; color: white; width: 100%" class="btn" @click.prevent="addCart(product._id)">+ Add to cart</button>
           </div>
-          <button style="background-color: #222222; color: white; width: 100%" class="btn" @click.prevent="addCart(product._id)">+ Add to cart</button>
         </div>
       </div>
     </div>
@@ -55,18 +57,26 @@ export default {
       get(){
         return this.$store.state.product
       }
-    }
+    },
+    isLogin(){
+      return this.$store.state.isLogin
+    },
   },
   components: {
     Navbar
   },
   methods: {
     addCart(id){
-      this.$store.dispatch('addToCart', {product_id: id})
-      Swal.fire({
-        title: 'Success added to cart',
-        icon: 'success'
-      })
+      if(localStorage.getItem('token')){
+        this.$store.dispatch('addToCart', {product_id: id})
+        Swal.fire({
+          title: 'Success added to cart',
+          icon: 'success'
+        })
+      }
+      else{
+        this.$router.push('/login')
+      }
     }
   },
   created(){

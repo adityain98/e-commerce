@@ -2,7 +2,7 @@
   <div class="mb-4">
     <div class="border p-3" style="width: 100%">
       <div class="d-flex justify-content-between">
-        <h4>{{ index + 1 }}. Product Id: {{ transaction._id }}</h4>
+        <div class="product-id">{{ index + 1 }}. Product Id: {{ transaction._id }}</div>
         <slot></slot>
       </div>
       <div class="container">
@@ -57,5 +57,10 @@ export default {
 </script>
 
 <style>
+@media screen and (max-width: 580px) {
+  .product-id {
+    
+  }
+}
 
 </style>

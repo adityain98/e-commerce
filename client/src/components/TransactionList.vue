@@ -1,7 +1,7 @@
 <template>
   <div>
     <CardTransaction v-for="(transaction, index) in transactions" :key="transaction._id" :transaction="transaction" :index="index">
-      <small>{{ transaction.user_id }}</small>
+      <small>{{ transaction.user_id.username }}</small>
     </CardTransaction>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
     if(localStorage.getItem('token')){
       this.$store.dispatch('fetchAdminTransaction')
     }
+    console.log(this.transactions)
   },
   components: {
     CardTransaction

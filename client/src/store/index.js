@@ -147,7 +147,11 @@ export default new Vuex.Store({
           router.push('/')
         })
         .catch(err=>{
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: err.response.data.message
+          })
+          console.log(err.response.data.message)
         })
     },
     logout({state, commit}){
@@ -209,6 +213,22 @@ export default new Vuex.Store({
         })
         .catch(err=>{
           console.log(err, '----------')
+          Swal.fire({
+            title: 'Something Happend',
+            icon: 'error'
+          })
+        })
+    },
+    fetchProductsGender({commit}, payload) {
+      axiosConnect({
+        url: `/products/gender/${payload}`,
+        method:'get'
+      })
+        .then(({ data }) => {
+          commit('CHANGE_PRODUCTS', data)
+        })
+        .catch(err => {
+          console.log(err)
           Swal.fire({
             title: 'Something Happend',
             icon: 'error'
@@ -334,6 +354,13 @@ export default new Vuex.Store({
             title: 'Checkout Success',
             text:'Please confirm the transaction when item delivered',
             icon: 'success'
+          })
+        })
+        .catch(err => {
+          Swal.fire({
+            title: 'Error',
+            text: err.response.data.message,
+            icon: 'error'
           })
         })
     },

@@ -3,7 +3,7 @@
     <Navbar/>
     <div class="container d-flex justify-content-center" style="width: 100%">
       <div class="mb-4" style="width: 100%">
-        <div class="d-flex justify-content-center" style="font-size: 250%">
+        <div class="d-flex justify-content-center" style="font-size: 250%" id="transaction-text">
           Your Transactions
         </div>
         <!-- loop -->
@@ -41,5 +41,10 @@ export default {
 </script>
 
 <style>
+@media screen and (max-width: 420px) {
+  #transaction-text {
+    font-size: 200% !important
+  }
+}
 
 </style>

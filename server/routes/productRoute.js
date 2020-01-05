@@ -17,6 +17,7 @@ router.get('/', ProductController.getProduct)
 router.get('/search', ProductController.search)
 router.get('/page/:page', ProductController.getProductPagination)
 router.get('/:id', ProductController.getOne)
+router.get('/gender/:gender', ProductController.getGender)
 
 router.post('/', authentication, adminAuthorization, upload.single('file'), ProductController.createProduct)
 

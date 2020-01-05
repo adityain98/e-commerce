@@ -5,7 +5,7 @@
       <div style="width: 200px">
         <img :src="item.product_id.image" alt="" style="width: 100%; object-fit: cover;">
       </div>
-      <div class="ml-4" style="font-size: 150%">
+      <div class="ml-4" style="font-size: 150%" id="product-name">
         {{ item.product_id.name }}
       </div>
       <div class="ml-auto d-flex flex-column justify-content-between">
@@ -16,7 +16,7 @@
           </div>
           <button class="btn" @click.prevent="addCart(item.product_id._id)">+</button>
         </div>
-        <div>
+        <div id="total-price">
           Rp. {{ totalPrice }}
         </div>
       </div>
@@ -45,5 +45,13 @@ export default {
 </script>
 
 <style>
+@media screen and (max-width: 420px) {
+  #product-name {
+    font-size: 100% !important
+  }
+  #total-price {
+    font-size: 80%
+  }
+}
 
 </style>

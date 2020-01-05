@@ -2,9 +2,9 @@
   <div>
     <div class="border p-3 mb-4" style="width: 100%" >
       <div class="d-flex justify-content-between">
-        <h4>Product Id: {{ transaction._id }}</h4>
+        <div>Transaction Id: {{ transaction._id }}</div>
         <div v-if="!transaction.status">
-          <button class="btn" style="background-color: #B80F0B; color: white" @click.prevent="delivered(transaction._id)"> Delivered? </button>
+          <button class="btn" style="background-color: #B80F0B; color: white" @click.prevent="delivered(transaction._id)" id="btn-delivered"> Delivered? </button>
         </div>
       </div>
       <div class="container">
@@ -34,7 +34,7 @@
           <div>
             Status: <span style="color: green" v-if="transaction.status">Delivered</span> <span style="color: red" v-else>On process</span>
           </div>
-          <div>
+          <div style="font-size: 150%" id="total-price">
             Rp. {{ totalPrice }}
           </div>
         </div>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   props: ['transaction'],
   computed: {
@@ -57,12 +59,32 @@ export default {
   },
   methods: {
     delivered(id){
-      this.$store.dispatch('transactionDone', id)
+      Swal.fire({
+        title: 'Are you sure this items are delivered?',
+        text: "You can't change once it confirmed",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Yes, it's already delivered!"
+      }).then((result) => {
+        if (result.value) {
+          this.$store.dispatch('transactionDone', id)
+        }
+      })
     }
   }
 }
 </script>
 
 <style>
+@media screen and (max-width: 480px) {
+  #btn-delivered {
+    font-size: 80%
+  }
+  #total-price {
+    font-size: 100% !important
+  }
+}
 
 </style>

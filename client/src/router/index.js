@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Men from '../views/Men.vue'
 import AddCart from '../components/AddCart.vue'
 import ProductList from '../components/ProductList.vue'
 import TransactionList from '../components/TransactionList.vue'
@@ -52,6 +53,16 @@ const routes = [
       path: 'transaction',
       component: TransactionList
     }]
+  },
+  {
+    path: '/men',
+    name: 'men',
+    component: () => import(/* webpackChunkName: "men" */ '../views/Men.vue'),
+  },
+  {
+    path: '/women',
+    name: 'women',
+    component: () => import(/* webpackChunkName: "women" */ '../views/Women.vue'),
   }
 ]
 

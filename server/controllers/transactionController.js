@@ -103,6 +103,7 @@ class TransactionController{
   static adminFindAll(req, res, next){
     Transaction.find()
     .populate('products.product_id')
+    .populate('user_id')
     .sort({createdAt:'desc'})
       .then(transactions=>{
         res.status(200).json(transactions)

@@ -93,6 +93,16 @@ class ProductController{
       })
       .catch(next)
   }
+
+  static getGender(req, res, next){
+    const {gender} = req.params
+    Product.find({gender})
+      .sort({createdAt:'desc'})
+      .then(product => {
+        res.status(200).json(product)
+      })
+      .catch(next)
+  }
 }
 
 module.exports = ProductController
